@@ -3,7 +3,7 @@ package kr.easw.lesson4;
 public class ImplementationExample {
 
     public static void main(String[] args) {
-        if (onTest(1000).equals("TestValue - 34300")) {
+        if (onTest(1000).equals("TestValue - 8575000000")) {
             System.out.println("정답입니다.");
             return;
         }
