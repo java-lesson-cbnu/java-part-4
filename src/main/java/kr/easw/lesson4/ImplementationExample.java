@@ -3,7 +3,7 @@ package kr.easw.lesson4;
 public class ImplementationExample {
 
     public static void main(String[] args) {
-        if (onTest(1000).equals("TestValue - 8575000000")) {
+        if (onTest(1000).equals("TestValue - 700")) {
             System.out.println("정답입니다.");
             return;
         }
@@ -32,7 +32,7 @@ public class ImplementationExample {
          *
          * 두번째 값에 다음 연산을 거친 후, 첫번째 값에 " - "를 붙여야 합니다.
          *
-         * 두번째 값을 2로 나눈 다음, 7을 곱하고, 3을 제곱한 후, 5로 나눠야 합니다.
+         * 두번째 값을 2로 나눈 다음, 7을 곱하고, 5로 나눠야 합니다.
          *
          * 그 후, 이 값을 반환해야 합니다.
          *
