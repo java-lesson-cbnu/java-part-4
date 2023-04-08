@@ -48,7 +48,7 @@ public class ModularExample {
 
     private static int calculateScore(int totalTick, int totalEnergy, int leftFuel) {
         double fuelUsage = 2.0 - ((double) leftFuel / (double) INITIAL_FUEL);
-        double tickUsage = 1.5 - ((double) (MAX_TICK - totalTick) / (double) MAX_TICK);
+        double tickUsage = 1.5 - ((double) (totalTick) / (double) MAX_TICK);
         return (int) (fuelUsage * tickUsage * totalEnergy);
     }
 
@@ -58,7 +58,38 @@ public class ModularExample {
      * 상속하여 구현한 Vehicle 객체를 반환해야 합니다.
      */
     public static Vehicle getVehicle() {
-        throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+        // 구현한 클래스의 객체를 반환합니다.
+        return new CustomVehicle();
+    }
+
+    static class CustomVehicle extends Vehicle {
+        // 에너지 인스턴스를 교체하기 위해 변수로 선언해 사용합니다.
+        private Energy energy = new CoalEnergy();
+
+        @Override
+        public Energy getEnergy() {
+            // 현재 에너지 타입을 반환합니다.
+            return energy;
+        }
+
+        @Override
+        public VehicleType getType() {
+            // Car은 추가적인 틱 소모와 연료 소모로 인해 비효율적인 선택입니다.
+            // Bike를 선택해 추가적인 메리트를 가져갑니다.
+            return new Bike();
+        }
+
+        @Override
+        public void onTick(int currentTick, int fuel) {
+            // 연료가 부족할 경우, 틱이 정지됩니다. 그러한 문제를 방지하기 위해, 연료가 부족한 경우 에너지를 교체합니다.
+            // 연료 소모가 0일 경우 문제가 발생하지 않으니 연료 소모량이 0을 초과할때만 교체합니다.
+            if (energy.fuelUsage() > 0 && fuel < energy.fuelUsage()) {
+                // SunlightEnergy는 각 틱마다 1의 에너지를 지급하지만, HumanEnergy는 5틱마다 15를 지급합니다.
+                // 이를 1틱으로 환산하면, SunlightEnergy는 1틱마다 1의 에너지를, HumanEnergy는 1틱마다 3의 에너지를 지급합니다.
+                // 가장 효율이 높은 HumanEnergy를 사용합니다.
+                energy = new HumanEnergy();
+            }
+        }
     }
 
     // 해당 클래스를 상속하여 구현하여야 합니다.
