@@ -48,7 +48,7 @@ public class ModularExample {
 
     private static int calculateScore(int totalTick, int totalEnergy, int leftFuel) {
         double fuelUsage = 2.0 - ((double) leftFuel / (double) INITIAL_FUEL);
-        double tickUsage = 1.5 - ((double) totalTick / (double) MAX_TICK);
+        double tickUsage = 1.5 - ((double) (MAX_TICK - totalTick) / (double) MAX_TICK);
         return (int) (fuelUsage * tickUsage * totalEnergy);
     }
 
